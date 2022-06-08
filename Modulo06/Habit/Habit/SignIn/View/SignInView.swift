@@ -12,42 +12,55 @@ struct SignInView: View {
     @State var navigationHidden = true
     
     var body: some View {
-        NavigationView {
-            ScrollView(showsIndicators: false) {
-                VStack(alignment: .center, spacing: 20, content: {
-                    Spacer()
-                    VStack(alignment: .center, spacing: 8, content: {
-                        Image("logo")
-                            .resizable()
-                            .scaledToFit()
-                            .padding(.horizontal, 48)
-                        
-                        Text("Login")
-                            .foregroundColor(.orange)
-                            .font(Font.system(.title).bold())
-                            .padding(.bottom, 8)
-                        
-                        numberField
-                        
-                        passwordField
-                        
-                        enterButton
-                        
-                        registerLink
-                        
-                        Text("Copyright @YYY")
-                            .foregroundColor(Color.gray)
-                            .font(Font.system(size: 16).bold())
-                            .padding(.top, 16)
-                    })
-                })
-                .frame(maxWidth: .infinity, maxHeight: .infinity)
-                .padding(.horizontal, 32)
-                .background(Color.white)
-                .navigationBarTitle("Login", displayMode: .large)
-                .navigationBarHidden(navigationHidden)
+        ZStack {
+            if case SignInUIState.goToHomeScreen = viewModel.uiState {
+                Text("tela principal")
+            } else {
+                NavigationView {
+                    ScrollView(showsIndicators: false) {
+                        VStack(alignment: .center, spacing: 20, content: {
+                            Spacer()
+                            VStack(alignment: .center, spacing: 8, content: {
+                                Image("logo")
+                                    .resizable()
+                                    .scaledToFit()
+                                    .padding(.horizontal, 48)
+
+                                Text("Login")
+                                    .foregroundColor(.orange)
+                                    .font(Font.system(.title).bold())
+                                    .padding(.bottom, 8)
+
+                                numberField
+
+                                passwordField
+
+                                enterButton
+
+                                registerLink
+
+                                Text("Copyright @YYY")
+                                    .foregroundColor(Color.gray)
+                                    .font(Font.system(size: 16).bold())
+                                    .padding(.top, 16)
+                            })
+                        })
+                        .frame(maxWidth: .infinity, maxHeight: .infinity)
+                        .padding(.horizontal, 32)
+                        .background(Color.white)
+                        .navigationBarTitle("Login", displayMode: .large)
+                        .navigationBarHidden(navigationHidden)
+                    }
+                }
+                .onAppear {
+                    self.navigationHidden = true
+                }
+                .onDisappear {
+                    self.navigationHidden = false
+                }
             }
         }
+
     }
 }
 
@@ -71,7 +84,7 @@ extension SignInView {
 extension SignInView {
     var enterButton: some View {
         Button("Entrar") {
-            print("Entrar")
+            viewModel.login(email: email, password: password)
         }
     }
 }

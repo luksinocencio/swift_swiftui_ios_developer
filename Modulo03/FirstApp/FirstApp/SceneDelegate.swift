@@ -1,10 +1,3 @@
-//
-//  SceneDelegate.swift
-//  FirstApp
-//
-//  Created by Lucas Inocencio on 05/07/21.
-//
-
 import UIKit
 import SwiftUI
 

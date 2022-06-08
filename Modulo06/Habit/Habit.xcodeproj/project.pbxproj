@@ -7,6 +7,7 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		B19E67C3285053C20034669E /* SignInUIState.swift in Sources */ = {isa = PBXBuildFile; fileRef = B19E67C2285053C20034669E /* SignInUIState.swift */; };
 		E8B67C5D26A5F91100A8E227 /* HabitApp.swift in Sources */ = {isa = PBXBuildFile; fileRef = E8B67C5C26A5F91100A8E227 /* HabitApp.swift */; };
 		E8B67C6126A5F91300A8E227 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = E8B67C6026A5F91300A8E227 /* Assets.xcassets */; };
 		E8B67C6426A5F91300A8E227 /* Preview Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = E8B67C6326A5F91300A8E227 /* Preview Assets.xcassets */; };
@@ -19,6 +20,7 @@
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
+		B19E67C2285053C20034669E /* SignInUIState.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SignInUIState.swift; sourceTree = "<group>"; };
 		E8B67C5926A5F91100A8E227 /* Habit.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = Habit.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		E8B67C5C26A5F91100A8E227 /* HabitApp.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HabitApp.swift; sourceTree = "<group>"; };
 		E8B67C6026A5F91300A8E227 /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
@@ -43,6 +45,14 @@
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
+		B19E67C1285053B80034669E /* Model */ = {
+			isa = PBXGroup;
+			children = (
+				B19E67C2285053C20034669E /* SignInUIState.swift */,
+			);
+			path = Model;
+			sourceTree = "<group>";
+		};
 		E8B67C5026A5F91100A8E227 = {
 			isa = PBXGroup;
 			children = (
@@ -118,7 +128,7 @@
 		E8B67C7E26A7460F00A8E227 /* SignIn */ = {
 			isa = PBXGroup;
 			children = (
-				E8B67C8126A7462800A8E227 /* Model */,
+				B19E67C1285053B80034669E /* Model */,
 				E8B67C7F26A7461A00A8E227 /* View */,
 				E8B67C8026A7461F00A8E227 /* ViewModel */,
 			);
@@ -139,13 +149,6 @@
 				E8B67C8426A746D800A8E227 /* SignInViewModel.swift */,
 			);
 			path = ViewModel;
-			sourceTree = "<group>";
-		};
-		E8B67C8126A7462800A8E227 /* Model */ = {
-			isa = PBXGroup;
-			children = (
-			);
-			path = Model;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -222,6 +225,7 @@
 				E8B67C8526A746D800A8E227 /* SignInViewModel.swift in Sources */,
 				E8B67C6F26A5F97800A8E227 /* SplashView.swift in Sources */,
 				E8B67C7826A6099A00A8E227 /* SplashViewModel.swift in Sources */,
+				B19E67C3285053C20034669E /* SignInUIState.swift in Sources */,
 				E8B67C8726A7483400A8E227 /* SplashViewRouter.swift in Sources */,
 				E8B67C8326A7465A00A8E227 /* SignInView.swift in Sources */,
 			);

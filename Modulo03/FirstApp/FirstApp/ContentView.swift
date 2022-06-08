@@ -1,10 +1,3 @@
-//
-//  ContentView.swift
-//  FirstApp
-//
-//  Created by Lucas Inocencio on 05/07/21.
-//
-
 import SwiftUI
 
 struct ContentView: View {
@@ -19,8 +12,7 @@ struct ContentView: View {
                 .font(.largeTitle)
                 .foregroundColor(Color.purple)
                 .multilineTextAlignment(.center)
-        }
-        
+        }.padding(10)
     }
 }
 
