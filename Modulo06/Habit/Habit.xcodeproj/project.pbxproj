@@ -8,6 +8,9 @@
 
 /* Begin PBXBuildFile section */
 		B19E67C3285053C20034669E /* SignInUIState.swift in Sources */ = {isa = PBXBuildFile; fileRef = B19E67C2285053C20034669E /* SignInUIState.swift */; };
+		E8459CAF29A068D0008DF390 /* SignInViewRouter.swift in Sources */ = {isa = PBXBuildFile; fileRef = E8459CAE29A068D0008DF390 /* SignInViewRouter.swift */; };
+		E8459CB529A06940008DF390 /* HomeView.swift in Sources */ = {isa = PBXBuildFile; fileRef = E8459CB429A06940008DF390 /* HomeView.swift */; };
+		E8459CB729A06954008DF390 /* HomeViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = E8459CB629A06954008DF390 /* HomeViewModel.swift */; };
 		E8B67C5D26A5F91100A8E227 /* HabitApp.swift in Sources */ = {isa = PBXBuildFile; fileRef = E8B67C5C26A5F91100A8E227 /* HabitApp.swift */; };
 		E8B67C6126A5F91300A8E227 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = E8B67C6026A5F91300A8E227 /* Assets.xcassets */; };
 		E8B67C6426A5F91300A8E227 /* Preview Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = E8B67C6326A5F91300A8E227 /* Preview Assets.xcassets */; };
@@ -21,6 +24,9 @@
 
 /* Begin PBXFileReference section */
 		B19E67C2285053C20034669E /* SignInUIState.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SignInUIState.swift; sourceTree = "<group>"; };
+		E8459CAE29A068D0008DF390 /* SignInViewRouter.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SignInViewRouter.swift; sourceTree = "<group>"; };
+		E8459CB429A06940008DF390 /* HomeView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HomeView.swift; sourceTree = "<group>"; };
+		E8459CB629A06954008DF390 /* HomeViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HomeViewModel.swift; sourceTree = "<group>"; };
 		E8B67C5926A5F91100A8E227 /* Habit.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = Habit.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		E8B67C5C26A5F91100A8E227 /* HabitApp.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HabitApp.swift; sourceTree = "<group>"; };
 		E8B67C6026A5F91300A8E227 /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
@@ -53,6 +59,39 @@
 			path = Model;
 			sourceTree = "<group>";
 		};
+		E8459CB029A06904008DF390 /* Home */ = {
+			isa = PBXGroup;
+			children = (
+				E8459CB329A06927008DF390 /* Model */,
+				E8459CB229A06916008DF390 /* ViewModel */,
+				E8459CB129A0690D008DF390 /* View */,
+			);
+			path = Home;
+			sourceTree = "<group>";
+		};
+		E8459CB129A0690D008DF390 /* View */ = {
+			isa = PBXGroup;
+			children = (
+				E8459CB429A06940008DF390 /* HomeView.swift */,
+			);
+			path = View;
+			sourceTree = "<group>";
+		};
+		E8459CB229A06916008DF390 /* ViewModel */ = {
+			isa = PBXGroup;
+			children = (
+				E8459CB629A06954008DF390 /* HomeViewModel.swift */,
+			);
+			path = ViewModel;
+			sourceTree = "<group>";
+		};
+		E8459CB329A06927008DF390 /* Model */ = {
+			isa = PBXGroup;
+			children = (
+			);
+			path = Model;
+			sourceTree = "<group>";
+		};
 		E8B67C5026A5F91100A8E227 = {
 			isa = PBXGroup;
 			children = (
@@ -72,6 +111,7 @@
 		E8B67C5B26A5F91100A8E227 /* Habit */ = {
 			isa = PBXGroup;
 			children = (
+				E8459CB029A06904008DF390 /* Home */,
 				E8B67C7E26A7460F00A8E227 /* SignIn */,
 				E8B67C6B26A5F92400A8E227 /* Splash */,
 				E8B67C5C26A5F91100A8E227 /* HabitApp.swift */,
@@ -147,6 +187,7 @@
 			isa = PBXGroup;
 			children = (
 				E8B67C8426A746D800A8E227 /* SignInViewModel.swift */,
+				E8459CAE29A068D0008DF390 /* SignInViewRouter.swift */,
 			);
 			path = ViewModel;
 			sourceTree = "<group>";
@@ -221,8 +262,11 @@
 			buildActionMask = 2147483647;
 			files = (
 				E8B67C7126A5FA2B00A8E227 /* SplashUIState.swift in Sources */,
+				E8459CB729A06954008DF390 /* HomeViewModel.swift in Sources */,
 				E8B67C5D26A5F91100A8E227 /* HabitApp.swift in Sources */,
 				E8B67C8526A746D800A8E227 /* SignInViewModel.swift in Sources */,
+				E8459CB529A06940008DF390 /* HomeView.swift in Sources */,
+				E8459CAF29A068D0008DF390 /* SignInViewRouter.swift in Sources */,
 				E8B67C6F26A5F97800A8E227 /* SplashView.swift in Sources */,
 				E8B67C7826A6099A00A8E227 /* SplashViewModel.swift in Sources */,
 				B19E67C3285053C20034669E /* SignInUIState.swift in Sources */,

@@ -14,43 +14,51 @@ struct SignInView: View {
     var body: some View {
         ZStack {
             if case SignInUIState.goToHomeScreen = viewModel.uiState {
-                Text("tela principal")
+                viewModel.homeView()
             } else {
                 NavigationView {
                     ScrollView(showsIndicators: false) {
-                        VStack(alignment: .center, spacing: 20, content: {
+                        VStack(alignment: .center, spacing: 20) {
                             Spacer()
-                            VStack(alignment: .center, spacing: 8, content: {
+                            VStack(alignment: .center, spacing: 8) {
                                 Image("logo")
                                     .resizable()
                                     .scaledToFit()
                                     .padding(.horizontal, 48)
-
+                                
                                 Text("Login")
                                     .foregroundColor(.orange)
                                     .font(Font.system(.title).bold())
                                     .padding(.bottom, 8)
-
-                                numberField
-
+                                
+                                emailField
+                                
                                 passwordField
-
+                                
                                 enterButton
-
+                                
                                 registerLink
-
+                                
                                 Text("Copyright @YYY")
                                     .foregroundColor(Color.gray)
                                     .font(Font.system(size: 16).bold())
                                     .padding(.top, 16)
-                            })
-                        })
-                        .frame(maxWidth: .infinity, maxHeight: .infinity)
-                        .padding(.horizontal, 32)
-                        .background(Color.white)
-                        .navigationBarTitle("Login", displayMode: .large)
-                        .navigationBarHidden(navigationHidden)
+                            }
+                        }
+                        if case SignInUIState.error(let value) = viewModel.uiState {
+                            Text("")
+                                .alert(isPresented: .constant(true)) {
+                                    Alert(title: Text("Habit"), message: Text(value), dismissButton: .default(Text("Ok")){
+                                        // fazer algo quando sumir o alerta
+                                    })
+                                }
+                        }
                     }
+                    .frame(maxWidth: .infinity, maxHeight: .infinity)
+                    .padding(.horizontal, 32)
+                    .background(Color.white)
+                    .navigationBarTitle("Login", displayMode: .large)
+                    .navigationBarHidden(navigationHidden)
                 }
                 .onAppear {
                     self.navigationHidden = true
@@ -60,12 +68,12 @@ struct SignInView: View {
                 }
             }
         }
-
+        
     }
 }
 
 extension SignInView {
-    var numberField: some View {
+    var emailField: some View {
         TextField("E-mail", text: $email)
             .keyboardType(.emailAddress)
             .textFieldStyle(RoundedBorderTextFieldStyle())
