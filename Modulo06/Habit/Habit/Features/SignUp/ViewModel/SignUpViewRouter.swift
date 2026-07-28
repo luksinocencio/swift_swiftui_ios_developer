@@ -1,6 +1,7 @@
 import SwiftUI
+import Combine
 
-enum SignInViewRouter {
+enum SignUpViewRouter {
     static func makeHomeView() -> some View {
         let viewModel = HomeViewModel()
         return HomeView(viewModel: viewModel)

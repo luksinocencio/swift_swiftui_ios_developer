@@ -1,11 +1,17 @@
 import SwiftUI
+import Combine
+
+import SwiftUI
 
 struct SignInView: View {
-    var viewModel: SignInViewModel
+    
+    @ObservedObject var viewModel: SignInViewModel
     
     @State var email = ""
     @State var password = ""
-    @State var isRegisterActive = false
+    
+    @State var action: Int? = 0
+    
     @State var navigationHidden = true
     
     var body: some View {
@@ -16,7 +22,8 @@ struct SignInView: View {
                 NavigationStack {
                     ScrollView(showsIndicators: false) {
                         VStack(alignment: .center, spacing: 20) {
-                            Spacer()
+                            Spacer(minLength: 36)
+                            
                             VStack(alignment: .center, spacing: 8) {
                                 Image("logo")
                                     .resizable()
@@ -38,27 +45,25 @@ struct SignInView: View {
                                 
                                 Text("Copyright @YYY")
                                     .foregroundColor(Color.gray)
-                                    .font(Font.system(size: 16).bold())
+                                    .font(Font.system(size: 13).bold())
                                     .padding(.top, 16)
                             }
+                            
                         }
+                        
                         if case SignInUIState.error(let value) = viewModel.uiState {
                             Text("")
                                 .alert(isPresented: .constant(true)) {
-                                    Alert(title: Text("Habit"), message: Text(value), dismissButton: .default(Text("Ok")){
-                                        // fazer algo quando sumir o alerta
+                                    Alert(title: Text("Habit"), message: Text(value), dismissButton: .default(Text("Ok")) {
+                                        // faz algo quando some o alerta
                                     })
                                 }
                         }
                     }
-                    .frame(maxWidth: .infinity, maxHeight: .infinity)
+                    .frame(maxWidth:.infinity, maxHeight: .infinity)
                     .padding(.horizontal, 32)
-                    .background(Color.white)
-                    .navigationBarTitle("Login", displayMode: .large)
+                    .navigationBarTitle("Login", displayMode: .inline)
                     .navigationBarHidden(navigationHidden)
-                    .navigationDestination(isPresented: $isRegisterActive) {
-                        Text("Tela de cadastro")
-                    }
                 }
                 .onAppear {
                     self.navigationHidden = true
@@ -68,32 +73,48 @@ struct SignInView: View {
                 }
             }
         }
-        
     }
 }
 
 extension SignInView {
     var emailField: some View {
-        TextField("E-mail", text: $email)
-            .keyboardType(.emailAddress)
-            .textFieldStyle(RoundedBorderTextFieldStyle())
-            .autocapitalization(.none)
+        EditTextView(
+            placeholder: "E-mail",
+            text: $email,
+            keyboard: .emailAddress,
+            error: "E-mail inválido",
+            failure: !email.isEmail()
+        )
     }
-    
+}
+
+extension SignInView {
     var passwordField: some View {
-        SecureField("Senha", text: $password)
-            .keyboardType(.emailAddress)
-            .textFieldStyle(RoundedBorderTextFieldStyle())
+        EditTextView(
+            placeholder: "Senha",
+            text: $password,
+            keyboard: .emailAddress,
+            error: "Senha deve ter ao menos 8 caracteres.",
+            failure: password.count < 8,
+            isSecure: true
+        )
     }
-    
+}
+
+extension SignInView {
     var enterButton: some View {
-        Button("Entrar") {
-            viewModel.login(email: email, password: password)
-        }
-        .padding(.top, 24)
-        .buttonStyle(.glass)
+        LoadingButtonView(
+            text: "Entrar",
+            action: {
+                viewModel.login(email: email, password: password)
+            },
+            showProgress: self.viewModel.uiState == SignInUIState.loading,
+            disabled: !email.isEmail() || password.count < 8
+        )
     }
-    
+}
+
+extension SignInView {
     var registerLink: some View {
         VStack {
             Text("Ainda não possui um login ativo?")
@@ -102,7 +123,7 @@ extension SignInView {
             
             ZStack {
                 NavigationLink {
-                    Text("Tela de cadastro")
+                    viewModel.signUpView()
                 } label: {
                     Text("Realize seu cadastro")
                 }
@@ -113,4 +134,9 @@ extension SignInView {
 
 #Preview {
     SignInView(viewModel: SignInViewModel())
+}
+
+#Preview {
+    SignInView(viewModel: SignInViewModel())
+        .preferredColorScheme(.dark)
 }

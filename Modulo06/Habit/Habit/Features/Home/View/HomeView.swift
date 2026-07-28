@@ -1,10 +1,11 @@
+import Combine
 import SwiftUI
 
 struct HomeView: View {
-    var viewModel: HomeViewModel
+    @ObservedObject var viewModel: HomeViewModel
     
     var body: some View {
-        Text("Hello")
+        Text("Ola Home Page")
     }
 }
 
