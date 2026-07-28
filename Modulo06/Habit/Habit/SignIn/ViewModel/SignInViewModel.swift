@@ -12,7 +12,8 @@ class SignInViewModel {
         
         Task {
             try? await Task.sleep(for: .seconds(1))
-            self.uiState = .goToHomeScreen
+//            self.uiState = .goToHomeScreen
+            self.uiState = .error("Usuário ou senha incorreta")
         }
     }
 }

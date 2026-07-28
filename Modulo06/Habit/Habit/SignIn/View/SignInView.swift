@@ -79,17 +79,13 @@ extension SignInView {
             .textFieldStyle(RoundedBorderTextFieldStyle())
             .autocapitalization(.none)
     }
-}
-
-extension SignInView {
+    
     var passwordField: some View {
         SecureField("Senha", text: $password)
             .keyboardType(.emailAddress)
             .textFieldStyle(RoundedBorderTextFieldStyle())
     }
-}
-
-extension SignInView {
+    
     var enterButton: some View {
         Button("Entrar") {
             viewModel.login(email: email, password: password)
@@ -97,9 +93,7 @@ extension SignInView {
         .padding(.top, 24)
         .buttonStyle(.glass)
     }
-}
-
-extension SignInView {
+    
     var registerLink: some View {
         VStack {
             Text("Ainda não possui um login ativo?")
