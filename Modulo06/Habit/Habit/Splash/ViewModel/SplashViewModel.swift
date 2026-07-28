@@ -1,14 +1,14 @@
 import SwiftUI
+import Observation
 
-class SplashViewModel: ObservableObject {
-    
-    @Published var uiState: SplashUIState = .loading
+@Observable
+@MainActor
+class SplashViewModel {
+    var uiState: SplashUIState = .loading
     
     func onAppear() {
-        // faz algo assincrono e muda o estado da uiState
-        DispatchQueue.main.asyncAfter(deadline: .now() + 3) {
-            // aqui  será executado depois de 2 segundos
-//            self.uiState = .goToHomeScreen
+        Task {
+            try? await Task.sleep(for: .seconds(3))
             self.uiState = .goToSignInScreen
         }
     }

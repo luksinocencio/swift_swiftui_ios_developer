@@ -1,14 +1,11 @@
 import SwiftUI
 
 struct SignInView: View {
-    
-    @ObservedObject var viewModel: SignInViewModel
+    var viewModel: SignInViewModel
     
     @State var email = ""
     @State var password = ""
-    
-    @State var action: Int? = 0
-    
+    @State var isRegisterActive = false
     @State var navigationHidden = true
     
     var body: some View {
@@ -16,7 +13,7 @@ struct SignInView: View {
             if case SignInUIState.goToHomeScreen = viewModel.uiState {
                 viewModel.homeView()
             } else {
-                NavigationView {
+                NavigationStack {
                     ScrollView(showsIndicators: false) {
                         VStack(alignment: .center, spacing: 20) {
                             Spacer()
@@ -59,6 +56,9 @@ struct SignInView: View {
                     .background(Color.white)
                     .navigationBarTitle("Login", displayMode: .large)
                     .navigationBarHidden(navigationHidden)
+                    .navigationDestination(isPresented: $isRegisterActive) {
+                        Text("Tela de cadastro")
+                    }
                 }
                 .onAppear {
                     self.navigationHidden = true
@@ -94,6 +94,8 @@ extension SignInView {
         Button("Entrar") {
             viewModel.login(email: email, password: password)
         }
+        .padding(.top, 24)
+        .buttonStyle(.glass)
     }
 }
 
@@ -105,24 +107,16 @@ extension SignInView {
                 .padding(.top, 48)
             
             ZStack {
-                NavigationLink(
-                    destination: Text("Tela de cadastro"),
-                    tag: 1,
-                    selection: $action,
-                    label: {
-                        EmptyView()
-                    })
-                
-                Button("Realize seu cadastro") {
-                    self.action = 1
+                NavigationLink {
+                    Text("Tela de cadastro")
+                } label: {
+                    Text("Realize seu cadastro")
                 }
             }
         }
     }
 }
 
-struct SignInView_Previews: PreviewProvider {
-    static var previews: some View {
-        SignInView(viewModel: SignInViewModel())
-    }
+#Preview {
+    SignInView(viewModel: SignInViewModel())
 }

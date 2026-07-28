@@ -1,6 +1,7 @@
-import Foundation
 import SwiftUI
+import Observation
 
-class HomeViewModel: ObservableObject {
+@Observable
+class HomeViewModel {
     
 }
