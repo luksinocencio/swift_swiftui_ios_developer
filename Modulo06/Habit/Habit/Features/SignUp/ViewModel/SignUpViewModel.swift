@@ -5,6 +5,13 @@ class SignUpViewModel: ObservableObject {
     var publisher: PassthroughSubject<Bool, Never>!
     
     @Published var uiState: SignUpUIState = .none
+    @Published var fullName = ""
+    @Published var email = ""
+    @Published var password = ""
+    @Published var document = ""
+    @Published var phone = ""
+    @Published var birthday = ""
+    @Published var gender = Gender.male
     
     func signUp() {
         self.uiState = .loading

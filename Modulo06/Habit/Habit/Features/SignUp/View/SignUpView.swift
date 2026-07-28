@@ -5,13 +5,7 @@ import Combine
 import SwiftUI
 
 struct SignUpView: View {
-    @State var fullName = ""
-    @State var email = ""
-    @State var password = ""
-    @State var document = ""
-    @State var phone = ""
-    @State var birthday = ""
-    @State var gender = Gender.male
+    
     
     @ObservedObject var viewModel: SignUpViewModel
     
@@ -67,10 +61,10 @@ extension SignUpView {
     var fullNameField: some View {
         EditTextView(
             placeholder: "Entre com seu nome completo *",
-            text: $fullName,
+            text: $viewModel.fullName,
             keyboard: .alphabet,
             error: "e-mail inválido",
-            failure: fullName.count < 3
+            failure: viewModel.fullName.count < 3
         )
     }
 }
@@ -79,10 +73,10 @@ extension SignUpView {
     var emailField: some View {
         EditTextView(
             placeholder: "Entre com seu e-mail *",
-            text: $email,
+            text: $viewModel.email,
             keyboard: .emailAddress,
             error: "e-mail inválido",
-            failure: !email.isEmail()
+            failure: !viewModel.email.isEmail()
         )
     }
 }
@@ -91,10 +85,10 @@ extension SignUpView {
     var passwordField: some View {
         EditTextView(
             placeholder: "Entre com sua senha *",
-            text: $password,
+            text: $viewModel.password,
             keyboard: .emailAddress,
             error: "senha deve ter ao menos 8 caracteres",
-            failure: password.count < 8,
+            failure: viewModel.password.count < 8,
             isSecure: true
         )
     }
@@ -104,10 +98,10 @@ extension SignUpView {
     var documentField: some View {
         EditTextView(
             placeholder: "Entre com seu CPF *",
-            text: $document,
+            text: $viewModel.document,
             keyboard: .numberPad,
             error: "CPF inválido",
-            failure: document.count != 11
+            failure: viewModel.document.count != 11
         )
         // TODO: mask
         // TODO: isDisabled
@@ -118,10 +112,10 @@ extension SignUpView {
     var phoneField: some View {
         EditTextView(
             placeholder: "Entre com seu celular *",
-            text: $phone,
+            text: $viewModel.phone,
             keyboard: .numberPad,
             error: "Entre com o DDD + 8 ou 9 digitos",
-            failure: phone.count < 10 || phone.count >= 12
+            failure: viewModel.phone.count < 10 || viewModel.phone.count >= 12
         )
         // TODO: mask
     }
@@ -131,10 +125,10 @@ extension SignUpView {
     var birthdayField: some View {
         EditTextView(
             placeholder: "Entre com com sua data de nascimento *",
-            text: $birthday,
+            text: $viewModel.birthday,
             keyboard: .default,
             error: "Data deve ser dd/MM/yyyy",
-            failure: birthday.count != 10
+            failure: viewModel.birthday.count != 10
         )
         // TODO: mask
     }
@@ -142,7 +136,7 @@ extension SignUpView {
 
 extension SignUpView {
     var genderField: some View {
-        Picker("Gender", selection: $gender) {
+        Picker("Gender", selection: $viewModel.gender) {
             ForEach(Gender.allCases, id: \.self) { value in
                 Text(value.rawValue)
                     .tag(value)
@@ -161,12 +155,12 @@ extension SignUpView {
                 viewModel.signUp()
             },
             showProgress: self.viewModel.uiState == SignUpUIState.loading,
-            disabled: !email.isEmail() ||
-            password.count < 8 ||
-            fullName.count < 3 ||
-            document.count != 11 ||
-            phone.count < 10 || phone.count >= 12 ||
-            birthday.count != 10
+            disabled: !viewModel.email.isEmail() ||
+            viewModel.password.count < 8 ||
+            viewModel.fullName.count < 3 ||
+            viewModel.document.count != 11 ||
+            viewModel.phone.count < 10 || viewModel.phone.count >= 12 ||
+            viewModel.birthday.count != 10
         )
     }
 }
