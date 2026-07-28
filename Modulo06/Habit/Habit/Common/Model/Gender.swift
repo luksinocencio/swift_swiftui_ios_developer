@@ -8,4 +8,7 @@ enum Gender: String, CaseIterable, Identifiable {
         self.rawValue
     }
     
+    var index: Self.AllCases.Index {
+        return Self.allCases.firstIndex { self == $0 } ?? 0
+    }
 }
