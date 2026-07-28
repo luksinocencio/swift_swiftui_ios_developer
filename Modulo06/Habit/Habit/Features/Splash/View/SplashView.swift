@@ -25,34 +25,6 @@ struct SplashView: View {
     
 }
 
-struct LoadingView: View {
-    var body: some View {
-        ZStack {
-            Image("logo")
-                .resizable()
-                .scaledToFit()
-                .frame(maxWidth: .infinity, maxHeight: .infinity)
-                .padding(20)
-                .background(Color.white)
-                .ignoresSafeArea()
-        }
-    }
-}
-
-extension SplashView {
-    var loading: some View {
-        ZStack {
-            Image("logo")
-                .resizable()
-                .scaledToFit()
-                .frame(maxWidth: .infinity, maxHeight: .infinity)
-                .padding(20)
-                .background(Color.white)
-                .ignoresSafeArea()
-        }
-    }
-}
-
 extension SplashView {
     func loadingView(error: String? = nil) -> some View {
         ZStack {
@@ -61,7 +33,6 @@ extension SplashView {
                 .scaledToFit()
                 .frame(maxWidth: .infinity, maxHeight: .infinity)
                 .padding(20)
-                .background(Color.white)
                 .ignoresSafeArea()
             
             if let error = error {
@@ -77,7 +48,13 @@ extension SplashView {
 }
 
 
-#Preview {
+#Preview("Light Theme") {
     let viewModel = SplashViewModel()
     SplashView(viewModel: viewModel)
+}
+
+#Preview("Dark Theme") {
+    let viewModel = SplashViewModel()
+    SplashView(viewModel: viewModel)
+        .preferredColorScheme(.dark)
 }
