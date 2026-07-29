@@ -39,6 +39,8 @@ extension SignInViewModel {
     func homeView() -> some View {
         return SignInViewRouter.makeHomeView()
     }
+    
+    @MainActor
     func signUpView() -> some View {
         return SignInViewRouter.makeSignUpView(publisher: publisher)
     }

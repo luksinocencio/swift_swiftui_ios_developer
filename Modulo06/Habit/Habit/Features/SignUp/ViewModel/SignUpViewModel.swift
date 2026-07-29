@@ -1,6 +1,7 @@
 import SwiftUI
 import Combine
 
+@MainActor
 class SignUpViewModel: ObservableObject {
     var publisher: PassthroughSubject<Bool, Never>!
     
@@ -16,22 +17,42 @@ class SignUpViewModel: ObservableObject {
     func signUp() {
         self.uiState = .loading
         
-//        DispatchQueue.main.asyncAfter(deadline: .now() + 1) {
-//            self.uiState = .success
-//            self.publisher.send(true)
-//        }
+        let formatter = DateFormatter()
+        formatter.locale = Locale(identifier: "en_US_POSIX")
+        formatter.dateFormat = "dd/MM/yyyy"
         
-        WebService.postUser(
+        let dateFormatted = formatter.date(from: birthday)
+        
+        guard let dateFormatted = dateFormatted else {
+            self.uiState = .error("Data inválida \(birthday)")
+            return
+        }
+        
+        formatter.dateFormat = "yyyy-MM-dd"
+        let formattedBirthday = formatter.string(from: dateFormatted)
+        
+        let request = SignUpRequest(
             fullName: fullName,
             email: email,
             password: password,
             document: document,
             phone: phone,
-            birthday: birthday,
+            birthday: formattedBirthday,
             gender: gender.index
         )
+        
+        Task {
+            let result = await WebService.postUser(request: request)
+            switch result {
+            case .success(let data):
+                print("Cadastro realizado com sucesso!")
+                self.uiState = .success
+            case .failure(let error, let errorData):
+                print("Falha no cadastro: \(error)")
+                self.uiState = .error("Erro ao realizar cadastro: \(error)")
+            }
+        }
     }
-    
 }
 
 extension SignUpViewModel {

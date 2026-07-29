@@ -7,6 +7,7 @@ enum SignInViewRouter {
         return HomeView(viewModel: viewModel)
     }
     
+    @MainActor
     static func makeSignUpView(publisher: PassthroughSubject<Bool, Never>) -> some View {
         let viewModel = SignUpViewModel()
         viewModel.publisher = publisher
