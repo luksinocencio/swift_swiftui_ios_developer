@@ -34,7 +34,7 @@ class SignUpViewModel: ObservableObject {
         
         let request = SignUpRequest(
             fullName: fullName, email: email, password: password,
-            document: document, phone: phone, birthday: formattedBirthday,
+            document: document.digitsOnly, phone: phone.digitsOnly, birthday: formattedBirthday,
             gender: gender.index
         )
         
@@ -44,7 +44,6 @@ class SignUpViewModel: ObservableObject {
         case .success:
             self.publisher.send(true)
             self.uiState = .success
-
         case let .failure(error):
             self.uiState = .error(error.localizedDescription)
         }

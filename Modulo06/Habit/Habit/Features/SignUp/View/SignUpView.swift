@@ -102,9 +102,14 @@ extension SignUpView {
             text: $viewModel.document,
             keyboard: .numberPad,
             error: "CPF inválido",
-            failure: viewModel.document.count != 11
+            failure: viewModel.document.digitsOnly.count != 11
         )
-        // TODO: mask
+        .onChange(of: viewModel.document) { _, newValue in
+            let masked = newValue.maskedCPF
+            if masked != newValue {
+                viewModel.document = masked
+            }
+        }
         // TODO: isDisabled
     }
 }
@@ -116,9 +121,14 @@ extension SignUpView {
             text: $viewModel.phone,
             keyboard: .numberPad,
             error: "Entre com o DDD + 8 ou 9 digitos",
-            failure: viewModel.phone.count < 10 || viewModel.phone.count >= 12
+            failure: viewModel.phone.digitsOnly.count < 10 || viewModel.phone.digitsOnly.count >= 12
         )
-        // TODO: mask
+        .onChange(of: viewModel.phone) { _, newValue in
+            let masked = newValue.maskedPhone
+            if masked != newValue {
+                viewModel.phone = masked
+            }
+        }
     }
 }
 
@@ -127,11 +137,16 @@ extension SignUpView {
         EditTextView(
             placeholder: "Entre com com sua data de nascimento *",
             text: $viewModel.birthday,
-            keyboard: .default,
+            keyboard: .numberPad,
             error: "Data deve ser dd/MM/yyyy",
             failure: viewModel.birthday.count != 10
         )
-        // TODO: mask
+        .onChange(of: viewModel.birthday) { _, newValue in
+            let masked = newValue.maskedBirthday
+            if masked != newValue {
+                viewModel.birthday = masked
+            }
+        }
     }
 }
 
@@ -159,8 +174,8 @@ extension SignUpView {
             disabled: !viewModel.email.isEmail() ||
             viewModel.password.count < 8 ||
             viewModel.fullName.count < 3 ||
-            viewModel.document.count != 11 ||
-            viewModel.phone.count < 10 || viewModel.phone.count >= 12 ||
+            viewModel.document.digitsOnly.count != 11 ||
+            viewModel.phone.digitsOnly.count < 10 || viewModel.phone.digitsOnly.count >= 12 ||
             viewModel.birthday.count != 10
         )
     }

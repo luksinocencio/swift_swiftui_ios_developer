@@ -37,6 +37,7 @@
 		E8936F26301B6E7C000E5280 /* AuthenticationService.swift in Sources */ = {isa = PBXBuildFile; fileRef = E8936F25301B6E75000E5280 /* AuthenticationService.swift */; };
 		E8936F28301B723D000E5280 /* SignUpEndpoint.swift in Sources */ = {isa = PBXBuildFile; fileRef = E8936F27301B723D000E5280 /* SignUpEndpoint.swift */; };
 		E8936F2A301B7375000E5280 /* SignUpService.swift in Sources */ = {isa = PBXBuildFile; fileRef = E8936F29301B7375000E5280 /* SignUpService.swift */; };
+		E8936F2C301B8D06000E5280 /* String+Mask.swift in Sources */ = {isa = PBXBuildFile; fileRef = E8936F2B301B8D06000E5280 /* String+Mask.swift */; };
 		EFD55A3E7A5D81438BE19889 /* LoadingButtonView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6C8F8165A6840B62092098B5 /* LoadingButtonView.swift */; };
 		F329EFEC01DD7CF221F4868C /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 44EBA28982B496F7C5B603F0 /* Assets.xcassets */; };
 		FA014778CB10285C1643345E /* HomeView.swift in Sources */ = {isa = PBXBuildFile; fileRef = D2C783A5F687AE493C650939 /* HomeView.swift */; };
@@ -79,6 +80,7 @@
 		E8936F25301B6E75000E5280 /* AuthenticationService.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AuthenticationService.swift; sourceTree = "<group>"; };
 		E8936F27301B723D000E5280 /* SignUpEndpoint.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SignUpEndpoint.swift; sourceTree = "<group>"; };
 		E8936F29301B7375000E5280 /* SignUpService.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SignUpService.swift; sourceTree = "<group>"; };
+		E8936F2B301B8D06000E5280 /* String+Mask.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "String+Mask.swift"; sourceTree = "<group>"; };
 		F66E9B482B5A254E76BE6C1B /* HabitApp.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HabitApp.swift; sourceTree = "<group>"; };
 		FCEE42E4AAD50B1BF100D3A8 /* HomeViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HomeViewModel.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
@@ -170,6 +172,7 @@
 			isa = PBXGroup;
 			children = (
 				5AC2E779ACB210889C917FD9 /* String+Ext.swift */,
+				E8936F2B301B8D06000E5280 /* String+Mask.swift */,
 			);
 			path = Extensions;
 			sourceTree = "<group>";
@@ -445,6 +448,7 @@
 			files = (
 				E8936F1C301B6C57000E5280 /* AuthEndpoint.swift in Sources */,
 				E8936F28301B723D000E5280 /* SignUpEndpoint.swift in Sources */,
+				E8936F2C301B8D06000E5280 /* String+Mask.swift in Sources */,
 				E8936F13301B6B88000E5280 /* AuthTokenProviding.swift in Sources */,
 				E8936F15301B6BA4000E5280 /* Endpoint.swift in Sources */,
 				E8936F26301B6E7C000E5280 /* AuthenticationService.swift in Sources */,

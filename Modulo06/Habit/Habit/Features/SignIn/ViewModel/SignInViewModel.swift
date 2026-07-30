@@ -27,11 +27,13 @@ class SignInViewModel: ObservableObject {
     func login() async {
         self.uiState = .loading
         
-        do {
-            let request = await AuthenticationService().login(email: email, password: password)
-//            self.publisher.send(success)
-//            self.uiState = .success
-        } catch {
+        let result = await AuthenticationService().login(email: email, password: password)
+
+        switch result {
+        case .success:
+            self.publisher.send(true)
+            self.uiState = .goToHomeScreen
+        case let .failure(error):
             self.uiState = .error(error.localizedDescription)
         }
     }
