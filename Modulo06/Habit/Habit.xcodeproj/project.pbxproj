@@ -25,6 +25,7 @@
 		E39D70218F521A1A52B78A49 /* SplashView.swift in Sources */ = {isa = PBXBuildFile; fileRef = CD1B5A4AAD8A47250BC207D2 /* SplashView.swift */; };
 		E844D4D9301A7A2C005F3BB6 /* SignUpRequest.swift in Sources */ = {isa = PBXBuildFile; fileRef = E844D4D8301A7A27005F3BB6 /* SignUpRequest.swift */; };
 		E844D4DB301A7E1A005F3BB6 /* SignUpResponse.swift in Sources */ = {isa = PBXBuildFile; fileRef = E844D4DA301A7E13005F3BB6 /* SignUpResponse.swift */; };
+		E86316B0301AEB3000B64811 /* ErrorResponse.swift in Sources */ = {isa = PBXBuildFile; fileRef = E86316AF301AEB2C00B64811 /* ErrorResponse.swift */; };
 		EA6434C4246E3B85CAEFF463 /* WebService.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6211FAB34EAEFB9BF6AC3A53 /* WebService.swift */; };
 		EFD55A3E7A5D81438BE19889 /* LoadingButtonView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6C8F8165A6840B62092098B5 /* LoadingButtonView.swift */; };
 		F329EFEC01DD7CF221F4868C /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 44EBA28982B496F7C5B603F0 /* Assets.xcassets */; };
@@ -57,6 +58,7 @@
 		D2C783A5F687AE493C650939 /* HomeView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HomeView.swift; sourceTree = "<group>"; };
 		E844D4D8301A7A27005F3BB6 /* SignUpRequest.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SignUpRequest.swift; sourceTree = "<group>"; };
 		E844D4DA301A7E13005F3BB6 /* SignUpResponse.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SignUpResponse.swift; sourceTree = "<group>"; };
+		E86316AF301AEB2C00B64811 /* ErrorResponse.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ErrorResponse.swift; sourceTree = "<group>"; };
 		F66E9B482B5A254E76BE6C1B /* HabitApp.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HabitApp.swift; sourceTree = "<group>"; };
 		FCEE42E4AAD50B1BF100D3A8 /* HomeViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HomeViewModel.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
@@ -303,6 +305,7 @@
 		F0A5B390201B06A3E9791FB5 /* Model */ = {
 			isa = PBXGroup;
 			children = (
+				E86316AF301AEB2C00B64811 /* ErrorResponse.swift */,
 				3A69E06CF02E84F2DC5E56CB /* Gender.swift */,
 			);
 			path = Model;
@@ -397,6 +400,7 @@
 				64C787C093D969A9DAC3038F /* SignUpUIState.swift in Sources */,
 				6248FA81E3D1782C9528688D /* SignUpView.swift in Sources */,
 				FBA34D7C0E0F4287CB3339C6 /* SignUpViewModel.swift in Sources */,
+				E86316B0301AEB3000B64811 /* ErrorResponse.swift in Sources */,
 				B12EF3C5E9B4338E889575E4 /* SignUpViewRouter.swift in Sources */,
 				8067EEF391C48F91CE8EC30E /* SplashUIState.swift in Sources */,
 				E39D70218F521A1A52B78A49 /* SplashView.swift in Sources */,
