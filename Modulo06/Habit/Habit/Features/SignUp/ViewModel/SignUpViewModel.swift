@@ -14,7 +14,8 @@ class SignUpViewModel: ObservableObject {
     
     @Published var uiState: SignUpUIState = .none
     
-    func signUp() {
+    @MainActor
+    func signUp() async {
         self.uiState = .loading
         
         // Pegar a String -> dd/MM/yyyy -> Date
@@ -22,33 +23,30 @@ class SignUpViewModel: ObservableObject {
         formatter.locale = Locale(identifier: "en_US_POSIX")
         formatter.dateFormat = "dd/MM/yyyy"
         
-        let dateFormatted = formatter.date(from: birthday)
-        
-        // Validar a Data
-        guard let dateFormatted = dateFormatted else {
+        guard let dateFormatted = formatter.date(from: birthday) else {
             self.uiState = .error("Data inválida \(birthday)")
             return
         }
         
         // Date -> yyyy-MM-dd -> String
         formatter.dateFormat = "yyyy-MM-dd"
-        let birthday = formatter.string(from: dateFormatted)
+        let formattedBirthday = formatter.string(from: dateFormatted)
         
+        let request = SignUpRequest(
+            fullName: fullName, email: email, password: password,
+            document: document, phone: phone, birthday: formattedBirthday,
+            gender: gender.index
+        )
         
-        WebService.postUser(request:
-                                SignUpRequest(
-                                    fullName: fullName,
-                                    email: email,
-                                    password: password,
-                                    document: document,
-                                    phone: phone,
-                                    birthday: birthday,
-                                    gender: gender.index
-                                )
-        ) { (successResponse, errorResponse) in
-            if let error = errorResponse {
-                self.uiState = .error(error.detail)
-            }
+        let result = await SignUpService().signUp(request: request)
+
+        switch result {
+        case .success:
+            self.publisher.send(true)
+            self.uiState = .success
+
+        case let .failure(error):
+            self.uiState = .error(error.localizedDescription)
         }
     }
 }

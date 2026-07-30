@@ -7,6 +7,8 @@ struct EditTextView: View {
     var error: String? = nil
     var failure: Bool? = false
     var isSecure: Bool = false
+    var autocapitalization: UITextAutocapitalizationType = .words
+    var autoCorrection: Bool = true
     
     var body: some View {
         VStack(alignment: .leading) {
@@ -18,6 +20,8 @@ struct EditTextView: View {
                 TextField(placeholder, text: $text)
                     .keyboardType(keyboard)
                     .textFieldStyle(CustomTextFieldStyle())
+                    .autocapitalization(autocapitalization)
+                    .autocorrectionDisabled(autoCorrection)
             }
             
             if let error = error, failure == true, !text.isEmpty {

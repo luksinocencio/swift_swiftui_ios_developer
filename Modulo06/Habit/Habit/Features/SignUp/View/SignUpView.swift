@@ -76,7 +76,8 @@ extension SignUpView {
             text: $viewModel.email,
             keyboard: .emailAddress,
             error: "e-mail inválido",
-            failure: !viewModel.email.isEmail()
+            failure: !viewModel.email.isEmail(),
+            autocapitalization: .none
         )
     }
 }
@@ -152,7 +153,7 @@ extension SignUpView {
         LoadingButtonView(
             text: "Realize o seu Cadastro",
             action: {
-                viewModel.signUp()
+                Task { await viewModel.signUp() }
             },
             showProgress: self.viewModel.uiState == SignUpUIState.loading,
             disabled: !viewModel.email.isEmail() ||

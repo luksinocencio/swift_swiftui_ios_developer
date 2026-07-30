@@ -80,7 +80,8 @@ extension SignInView {
             text: $viewModel.email,
             keyboard: .emailAddress,
             error: "E-mail inválido",
-            failure: !viewModel.email.isEmail()
+            failure: !viewModel.email.isEmail(),
+            autocapitalization: .none
         )
     }
 }
@@ -103,7 +104,7 @@ extension SignInView {
         LoadingButtonView(
             text: "Entrar",
             action: {
-                viewModel.login()
+               Task { await viewModel.login() }
             },
             showProgress: self.viewModel.uiState == SignInUIState.loading,
             disabled: !viewModel.email.isEmail() || viewModel.password.count < 8

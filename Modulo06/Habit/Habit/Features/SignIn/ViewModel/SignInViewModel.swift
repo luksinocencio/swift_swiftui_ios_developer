@@ -2,9 +2,7 @@ import SwiftUI
 import Combine
 
 class SignInViewModel: ObservableObject {
-    
     private var cancellable: AnyCancellable?
-    
     private let publisher = PassthroughSubject<Bool, Never>()
     
     @Published var uiState: SignInUIState = .none
@@ -25,14 +23,18 @@ class SignInViewModel: ObservableObject {
         cancellable?.cancel()
     }
     
-    func login() {
+    @MainActor
+    func login() async {
         self.uiState = .loading
         
-        DispatchQueue.main.asyncAfter(deadline: .now() + 1) {
-            self.uiState = .goToHomeScreen
+        do {
+            let request = await AuthenticationService().login(email: email, password: password)
+//            self.publisher.send(success)
+//            self.uiState = .success
+        } catch {
+            self.uiState = .error(error.localizedDescription)
         }
     }
-    
 }
 
 extension SignInViewModel {
