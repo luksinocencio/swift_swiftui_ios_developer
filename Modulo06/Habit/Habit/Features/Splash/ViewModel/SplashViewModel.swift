@@ -1,10 +1,13 @@
-import Combine
 import SwiftUI
+import Combine
 
 class SplashViewModel: ObservableObject {
+    
     @Published var uiState: SplashUIState = .loading
     
     private var cancellableAuth: AnyCancellable?
+    private var cancellableRefresh: AnyCancellable?
+    
     private let interactor: SplashInteractor
     
     init(interactor: SplashInteractor) {
@@ -13,6 +16,7 @@ class SplashViewModel: ObservableObject {
     
     deinit {
         cancellableAuth?.cancel()
+        cancellableRefresh?.cancel()
     }
     
     func onAppear() {
@@ -25,9 +29,32 @@ class SplashViewModel: ObservableObject {
                     self.uiState = .goToSignInScreen
                 }
                 // senao se userAuth != null && expirou
-                else if (Date().timeIntervalSince1970 > Date().timeIntervalSince1970 + Double(userAuth!.expires)) {
+                else if (Date().timeIntervalSince1970 > Double(userAuth!.expires)) {
                     // chamar o refresh token na API
                     print("token expirou")
+                    let reqeuest = RefreshRequest(token: userAuth!.refreshToken)
+                    self.cancellableRefresh = self.interactor.refreshToken(refreshRequest: reqeuest)
+                        .receive(on: DispatchQueue.main)
+                        .sink(receiveCompletion: { completion in
+                            switch(completion) {
+                            case .failure(_):
+                                self.uiState = .goToSignInScreen
+                                break
+                            default:
+                                break
+                            }
+                        }, receiveValue: { success in
+                            
+                            let auth = UserAuth(idToken: success.accessToken,
+                                                refreshToken: success.refreshToken,
+                                                expires: Date().timeIntervalSince1970 + Double(success.expires),
+                                                tokenType: success.tokenType)
+                            
+                            self.interactor.insertAuth(userAuth: auth)
+                            
+                            self.uiState = .goToHomeScreen
+                            
+                        })
                 }
                 // senao -> Tela princial
                 else {

@@ -1,5 +1,5 @@
-import Combine
 import Foundation
+import Combine
 
 class LocalDataSource {
     static var shared: LocalDataSource = LocalDataSource()
@@ -14,13 +14,13 @@ class LocalDataSource {
         var userAuth: UserAuth?
         if let data = UserDefaults.standard.value(forKey: key) as? Data {
             userAuth = try? PropertyListDecoder().decode(UserAuth.self, from: data)
-        }
+        }   
         return userAuth
     }
 }
 
 extension LocalDataSource {
-    func inseertUserAuth(userAuth: UserAuth) {
+    func insertUserAuth(userAuth: UserAuth) {
         saveValue(value: userAuth)
     }
     
