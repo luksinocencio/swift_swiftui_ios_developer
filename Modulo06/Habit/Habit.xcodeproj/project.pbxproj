@@ -29,6 +29,7 @@
 		E80587E1301C444E00D676E0 /* SignInRemoteDataSource.swift in Sources */ = {isa = PBXBuildFile; fileRef = E80587E0301C444E00D676E0 /* SignInRemoteDataSource.swift */; };
 		E80587E3301C469C00D676E0 /* UserAuth.swift in Sources */ = {isa = PBXBuildFile; fileRef = E80587E2301C469C00D676E0 /* UserAuth.swift */; };
 		E80587E5301C474000D676E0 /* LocalDataSource.swift in Sources */ = {isa = PBXBuildFile; fileRef = E80587E4301C473A00D676E0 /* LocalDataSource.swift */; };
+		E80587EA301C4BB700D676E0 /* SplashInteractor.swift in Sources */ = {isa = PBXBuildFile; fileRef = E80587E9301C4BB700D676E0 /* SplashInteractor.swift */; };
 		E8376D9B301BE1E500FA91D9 /* SignInInteractor.swift in Sources */ = {isa = PBXBuildFile; fileRef = E8376D9A301BE1E300FA91D9 /* SignInInteractor.swift */; };
 		E844D4D9301A7A2C005F3BB6 /* SignUpRequest.swift in Sources */ = {isa = PBXBuildFile; fileRef = E844D4D8301A7A27005F3BB6 /* SignUpRequest.swift */; };
 		E844D4DB301A7E1A005F3BB6 /* SignUpResponse.swift in Sources */ = {isa = PBXBuildFile; fileRef = E844D4DA301A7E13005F3BB6 /* SignUpResponse.swift */; };
@@ -72,6 +73,7 @@
 		E80587E0301C444E00D676E0 /* SignInRemoteDataSource.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SignInRemoteDataSource.swift; sourceTree = "<group>"; };
 		E80587E2301C469C00D676E0 /* UserAuth.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UserAuth.swift; sourceTree = "<group>"; };
 		E80587E4301C473A00D676E0 /* LocalDataSource.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LocalDataSource.swift; sourceTree = "<group>"; };
+		E80587E9301C4BB700D676E0 /* SplashInteractor.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SplashInteractor.swift; sourceTree = "<group>"; };
 		E8376D9A301BE1E300FA91D9 /* SignInInteractor.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SignInInteractor.swift; sourceTree = "<group>"; };
 		E844D4D8301A7A27005F3BB6 /* SignUpRequest.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SignUpRequest.swift; sourceTree = "<group>"; };
 		E844D4DA301A7E13005F3BB6 /* SignUpResponse.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SignUpResponse.swift; sourceTree = "<group>"; };
@@ -237,6 +239,7 @@
 		A38333F6FEDCD3290E2DE839 /* Splash */ = {
 			isa = PBXGroup;
 			children = (
+				E80587E6301C4B7E00D676E0 /* Interactor */,
 				C99C740DF4E54DBF084106D0 /* Model */,
 				2E2495663158812C0B708E7E /* View */,
 				C444A9BC2F1839BB0F0F9587 /* ViewModel */,
@@ -318,7 +321,6 @@
 		DA94F56B6DD2EAFACD27182A /* Network */ = {
 			isa = PBXGroup;
 			children = (
-				E80587E4301C473A00D676E0 /* LocalDataSource.swift */,
 				E8C8A5CD301C3B8B00874033 /* WebService.swift */,
 			);
 			path = Network;
@@ -329,6 +331,14 @@
 			children = (
 				E80587DC301C43F200D676E0 /* SignUpRemoteDataSource.swift */,
 				E80587DA301C429800D676E0 /* SignUpInteractor.swift */,
+			);
+			path = Interactor;
+			sourceTree = "<group>";
+		};
+		E80587E6301C4B7E00D676E0 /* Interactor */ = {
+			isa = PBXGroup;
+			children = (
+				E80587E9301C4BB700D676E0 /* SplashInteractor.swift */,
 			);
 			path = Interactor;
 			sourceTree = "<group>";
@@ -365,6 +375,7 @@
 				3A69E06CF02E84F2DC5E56CB /* Gender.swift */,
 				E80587D7301C3DC500D676E0 /* AppError.swift */,
 				E80587E2301C469C00D676E0 /* UserAuth.swift */,
+				E80587E4301C473A00D676E0 /* LocalDataSource.swift */,
 			);
 			path = Model;
 			sourceTree = "<group>";
@@ -473,6 +484,7 @@
 				B12EF3C5E9B4338E889575E4 /* SignUpViewRouter.swift in Sources */,
 				8067EEF391C48F91CE8EC30E /* SplashUIState.swift in Sources */,
 				E39D70218F521A1A52B78A49 /* SplashView.swift in Sources */,
+				E80587EA301C4BB700D676E0 /* SplashInteractor.swift in Sources */,
 				3CB6B668DAAF86B0FAA04A43 /* SplashViewModel.swift in Sources */,
 				5337F47876F21B6B9AC5E0F1 /* SplashViewRouter.swift in Sources */,
 				E844D4D9301A7A2C005F3BB6 /* SignUpRequest.swift in Sources */,

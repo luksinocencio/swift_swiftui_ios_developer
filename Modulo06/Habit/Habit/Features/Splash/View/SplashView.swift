@@ -2,7 +2,6 @@ import SwiftUI
 import Combine
 
 struct SplashView: View {
-    
     @ObservedObject var viewModel: SplashViewModel
     
     var body: some View {
@@ -47,14 +46,13 @@ extension SplashView {
     }
 }
 
-
 #Preview("Light Theme") {
-    let viewModel = SplashViewModel()
+    let viewModel = SplashViewModel(interactor: SplashInteractor())
     SplashView(viewModel: viewModel)
 }
 
 #Preview("Dark Theme") {
-    let viewModel = SplashViewModel()
+    let viewModel = SplashViewModel(interactor: SplashInteractor())
     SplashView(viewModel: viewModel)
         .preferredColorScheme(.dark)
 }
