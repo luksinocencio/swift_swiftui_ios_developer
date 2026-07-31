@@ -1,12 +1,7 @@
-import SwiftUI
 import Combine
-
-
 import SwiftUI
 
 struct SignUpView: View {
-    
-    
     @ObservedObject var viewModel: SignUpViewModel
     
     var body: some View {
@@ -182,6 +177,6 @@ extension SignUpView {
 }
 
 #Preview {
-    let viewModel = SignUpViewModel()
+    let viewModel = SignUpViewModel(interactor: SignUpInteractor())
     SignUpView(viewModel: viewModel)
 }

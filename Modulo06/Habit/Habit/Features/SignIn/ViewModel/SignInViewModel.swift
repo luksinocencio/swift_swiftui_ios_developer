@@ -2,14 +2,21 @@ import SwiftUI
 import Combine
 
 class SignInViewModel: ObservableObject {
-    private var cancellable: AnyCancellable?
-    private let publisher = PassthroughSubject<Bool, Never>()
     
-    @Published var uiState: SignInUIState = .none
     @Published var email = ""
     @Published var password = ""
     
-    init() {
+    private var cancellable: AnyCancellable?
+    private var cancellableRequest: AnyCancellable?
+    
+    private let publisher = PassthroughSubject<Bool, Never>()
+    private let interactor: SignInInteractor
+    
+    @Published var uiState: SignInUIState = .none
+    
+    init(interactor: SignInInteractor) {
+        self.interactor = interactor
+        
         cancellable = publisher.sink { value in
             print("usuário criado! goToHome: \(value)")
             
@@ -21,30 +28,41 @@ class SignInViewModel: ObservableObject {
     
     deinit {
         cancellable?.cancel()
+        cancellableRequest?.cancel()
     }
     
-    @MainActor
-    func login() async {
+    func login() {
         self.uiState = .loading
         
-        let result = await AuthenticationService().login(email: email, password: password)
-
-        switch result {
-        case .success:
-            self.publisher.send(true)
-            self.uiState = .goToHomeScreen
-        case let .failure(error):
-            self.uiState = .error(error.localizedDescription)
-        }
+        cancellableRequest = interactor.login(loginRequest: SignInRequest(email: email, password: password))
+            .receive(on: DispatchQueue.main )
+            .sink { completion in
+                switch(completion) {
+                case .failure(let appError):
+                    self.uiState = SignInUIState.error(appError.message)
+                    break
+                case .finished:
+                    break
+                }
+            } receiveValue: { success in
+                print(success)
+                let auth = UserAuth(
+                    idToken: success.accessToken,
+                    refreshToken: success.refreshToken,
+                    expires: success.expires,
+                    tokenType: success.tokenType
+                )
+                self.interactor.insertAuth(userAuth: auth)
+                self.uiState = .goToHomeScreen
+            }
     }
+    
 }
 
 extension SignInViewModel {
     func homeView() -> some View {
         return SignInViewRouter.makeHomeView()
     }
-    
-    @MainActor
     func signUpView() -> some View {
         return SignInViewRouter.makeSignUpView(publisher: publisher)
     }

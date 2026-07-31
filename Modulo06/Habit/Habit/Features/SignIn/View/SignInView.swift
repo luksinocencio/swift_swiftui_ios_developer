@@ -131,10 +131,10 @@ extension SignInView {
 }
 
 #Preview {
-    SignInView(viewModel: SignInViewModel())
+    SignInView(viewModel: SignInViewModel(interactor: .init()))
 }
 
 #Preview {
-    SignInView(viewModel: SignInViewModel())
+    SignInView(viewModel: SignInViewModel(interactor: .init()))
         .preferredColorScheme(.dark)
 }
