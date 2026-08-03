@@ -49,7 +49,7 @@ struct HabitCardView: View {
                 .foregroundColor(viewModel.state)
         }
         .navigationDestination(isPresented: self.$action) {
-            Text("Destination")
+            viewModel.habitDetailView()
         }
         .background(
             RoundedRectangle(cornerRadius: 4.0)
