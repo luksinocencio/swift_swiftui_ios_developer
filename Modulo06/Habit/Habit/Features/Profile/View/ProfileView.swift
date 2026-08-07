@@ -10,105 +10,138 @@ struct ProfileView: View {
         || viewModel.birthdayValidation.failure
     }
     
-    @State var email = "tiago.aguiar@teste.com.br"
-    @State var cpf = "111.222.333-11"
-    @State var phone = "(11) 1234-1234"
-    @State var birthday = "20/02/1990"
-    @State var selectedGender: Gender? = .male
-    
     var body: some View {
-        NavigationView {
-            
-            VStack {
-                
-                Form {
+        ZStack {
+            if case ProfileUIState.loading = viewModel.uiState {
+                ProgressView()
+            } else {
+                NavigationView {
                     
-                    Section(header: Text("Dados cadastrais")) {
-                        HStack {
-                            Text("Nome")
-                            Spacer()
-                            TextField("Digite o nome", text: $viewModel.fullNameValidation.value)
-                                .keyboardType(.alphabet)
-                                .multilineTextAlignment(.trailing)
-                        }
+                    VStack {
                         
-                        if viewModel.fullNameValidation.failure {
-                            Text("Nome deve ter mais de 3 caracteres")
-                                .foregroundColor(.red)
+                        Form {
+                            
+                            Section(header: Text("Dados cadastrais")) {
+                                HStack {
+                                    Text("Nome")
+                                    Spacer()
+                                    TextField("Digite o nome", text: $viewModel.fullNameValidation.value)
+                                        .keyboardType(.alphabet)
+                                        .multilineTextAlignment(.trailing)
+                                }
+                                
+                                if viewModel.fullNameValidation.failure {
+                                    Text("Nome deve ter mais de 3 caracteres")
+                                        .foregroundColor(.red)
+                                }
+                                
+                                HStack {
+                                    Text("E-mail")
+                                    Spacer()
+                                    TextField("", text: $viewModel.email)
+                                        .disabled(true)
+                                        .foregroundColor(Color.gray)
+                                        .multilineTextAlignment(.trailing)
+                                }
+                                
+                                HStack {
+                                    Text("CPF")
+                                    Spacer()
+                                    TextField("", text: $viewModel.document)
+                                        .disabled(true)
+                                        .foregroundColor(Color.gray)
+                                        .multilineTextAlignment(.trailing)
+                                }
+                                
+                                HStack {
+                                    Text("Celular")
+                                    Spacer()
+                                    TextField("Digite o seu celular", text: $viewModel.phoneValidation.value)
+                                        .keyboardType(.numberPad)
+                                        .multilineTextAlignment(.trailing)
+                                }
+                                
+                                if viewModel.phoneValidation.failure {
+                                    Text("Entre com o DDD + 8 ou 9 digitos")
+                                        .foregroundColor(.red)
+                                }
+                                
+                                HStack {
+                                    Text("Data de nascimento")
+                                    Spacer()
+                                    TextField("Digite a sua data de nascimento", text: $viewModel.birthdayValidation.value)
+                                        .multilineTextAlignment(.trailing)
+                                }
+                                
+                                if viewModel.birthdayValidation.failure {
+                                    Text("Data deve ser dd/MM/yyyy")
+                                        .foregroundColor(.red)
+                                }
+                                
+                                NavigationLink(
+                                    destination: GenderSelectorView(selectedGender: $viewModel.gender,
+                                                                    genders: Gender.allCases,
+                                                                    title: "Escolha o gênero"),
+                                    label: {
+                                        Text("Gênero")
+                                        Spacer()
+                                        Text(viewModel.gender?.rawValue ?? "")
+                                    })
+                                
+                            }
+                            
                         }
-                        
-                        HStack {
-                            Text("E-mail")
-                            Spacer()
-                            TextField("", text: $email)
-                                .disabled(true)
-                                .foregroundColor(Color.gray)
-                                .multilineTextAlignment(.trailing)
-                        }
-                        
-                        HStack {
-                            Text("CPF")
-                            Spacer()
-                            TextField("", text: $cpf)
-                                .disabled(true)
-                                .foregroundColor(Color.gray)
-                                .multilineTextAlignment(.trailing)
-                        }
-                        
-                        HStack {
-                            Text("Celular")
-                            Spacer()
-                            TextField("Digite o seu celular", text: $viewModel.phoneValidation.value)
-                                .keyboardType(.numberPad)
-                                .multilineTextAlignment(.trailing)
-                        }
-                        
-                        if viewModel.phoneValidation.failure {
-                            Text("Entre com o DDD + 8 ou 9 digitos")
-                                .foregroundColor(.red)
-                        }
-                        
-                        HStack {
-                            Text("Data de nascimento")
-                            Spacer()
-                            TextField("Digite a sua data de nascimento", text: $viewModel.birthdayValidation.value)
-                                .multilineTextAlignment(.trailing)
-                        }
-                        
-                        if viewModel.birthdayValidation.failure {
-                            Text("Data deve ser dd/MM/yyyy")
-                                .foregroundColor(.red)
-                        }
-                        
-                        NavigationLink(
-                            destination: GenderSelectorView(selectedGender: $selectedGender,
-                                                            genders: Gender.allCases,
-                                                            title: "Escolha o gênero"),
-                            label: {
-                                Text("Gênero")
-                                Spacer()
-                                Text(selectedGender?.rawValue ?? "")
-                            })
                         
                     }
                     
+                    .navigationBarTitle(Text("Editar Perfil"), displayMode: .automatic)
+                    .navigationBarItems(trailing: Button(action: {
+                        viewModel.updateUser()
+                    }, label: {
+                        if case ProfileUIState.updateLoading = viewModel.uiState {
+                            ProgressView()
+                        } else {
+                            Image(systemName: "checkmark")
+                                .foregroundColor(.orange)
+                        }
+                    })
+                        .alert(isPresented: .constant(viewModel.uiState == .updateSuccess)) {
+                            Alert(title: Text("Habit"),
+                                  message: Text("Dados atualizados com sucesso"),
+                                  dismissButton: .default(Text("Ok")) {
+                                viewModel.uiState = .none
+                            })
+                        }
+                        .opacity(disableDone ? 0 : 1)
+                    )
                 }
-                
             }
             
-            .navigationBarTitle(Text("Editar Perfil"), displayMode: .automatic)
-            .navigationBarItems(trailing: Button(action: {
-                
-            }, label: {
-                Image(systemName: "checkmark")
-                    .foregroundColor(.orange)
-            })
-                .opacity(disableDone ? 0 : 1)
-            )
-        }
+            if case ProfileUIState.updateError(let value) = viewModel.uiState {
+                Text("")
+                    .alert(isPresented: .constant(true)) {
+                        Alert(title: Text("Habit"),
+                              message: Text(value),
+                              dismissButton: .default(Text("Ok")) {
+                            viewModel.uiState = .none
+                        })
+                    }
+            }
+            
+            if case ProfileUIState.fetchError(let value) = viewModel.uiState {
+                Text("")
+                    .alert(isPresented: .constant(true)) {
+                        Alert(title: Text("Habit"),
+                              message: Text(value),
+                              dismissButton: .default(Text("Ok")) {
+                        })
+                    }
+            }
+            
+        }.onAppear(perform: viewModel.fetchUser)
     }
 }
 
 #Preview {
-    ProfileView(viewModel: ProfileViewModel())
+    ProfileView(viewModel: ProfileViewModel(interactor: ProfileInteractor()))
 }
